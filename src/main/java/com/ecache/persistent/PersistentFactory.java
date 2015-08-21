@@ -20,7 +20,7 @@ public class PersistentFactory {
   private static FileReaderWriter readWrite;
   
   public PersistentFactory(Configuration config) {
-    readWrite = new FileReaderWriter(config.getRootPath(), config.getSpace());
+    readWrite = new FileReaderWriter(config.getRoot(), config.getSpace());
     createExecutor = ThreadPoolUtil.createExecutor();
     initFlushScheduler();
   }

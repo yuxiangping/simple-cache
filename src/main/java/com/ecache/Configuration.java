@@ -5,18 +5,18 @@ public class Configuration {
   /**
    * 缓存文件根目录
    */
-  private String rootPath;
+  private String root;
   /**
    * 存储空间大小 (单位GB)
    */
   private int space;
 
-  public String getRootPath() {
-    return rootPath;
+  public String getRoot() {
+    return root;
   }
 
-  public void setRootPath(String rootPath) {
-    this.rootPath = rootPath;
+  public void setRoot(String root) {
+    this.root = root;
   }
 
   public int getSpace() {

@@ -48,8 +48,8 @@ public class FileReaderWriter {
   private Map<Integer, String> indexMap;
   private File indexFile;
 
-  public FileReaderWriter(String rootPath, int space) {
-    this.root = rootPath;
+  public FileReaderWriter(String root, int space) {
+    this.root = root;
     this.space = space;
     loadIndex();
   }
@@ -244,7 +244,7 @@ public class FileReaderWriter {
     for(File f : list) {
       _space += f.length();
     }
-    return _space >= space;
+    return _space >= (space * 1024 * 1024 * 1024);
   }
   
   private int hash(int h) {

@@ -26,7 +26,7 @@ public class CacheManager<K, V extends Serializable> implements ECache<K, V>, In
     if (config == null) {
       throw new RuntimeException("'config' cannot be null.");
     }
-    Assert.assertNotNull("'rootPath' cannot be empty.", config.getRootPath());
+    Assert.assertNotNull("'root' cannot be empty.", config.getRoot());
 
     factory = new PersistentFactory(config);
     factory.reload(caches);
