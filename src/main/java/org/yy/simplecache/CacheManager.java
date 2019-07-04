@@ -1,4 +1,4 @@
-package com.ecache;
+package org.yy.simplecache;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -6,16 +6,18 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import junit.framework.Assert;
-
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
+import org.yy.simplecache.persistent.PersistentFactory;
+import org.yy.simplecache.persistent.PersistentFactory.Event;
 
-import com.ecache.persistent.PersistentFactory;
-import com.ecache.persistent.PersistentFactory.Event;
-
-public class CacheManager<K, V extends Serializable> implements ECache<K, V>, InitializingBean, DisposableBean {
+/**
+ * Manager for cache. Load disk cached file to memory when manager inited.
+ * @author yy
+ */
+public class CacheManager<K, V extends Serializable> implements SimpleCache<K, V>, InitializingBean, DisposableBean {
 
   private Configuration config;
   private PersistentFactory factory;
@@ -24,9 +26,9 @@ public class CacheManager<K, V extends Serializable> implements ECache<K, V>, In
   @Override
   public void afterPropertiesSet() throws Exception {
     if (config == null) {
-      throw new RuntimeException("'config' cannot be null.");
+      throw new RuntimeException("Cache manager 'config' cannot be null.");
     }
-    Assert.assertNotNull("'root' cannot be empty.", config.getRoot());
+    Assert.notNull("Persisten 'root' path cannot be empty.", config.getRoot());
 
     factory = new PersistentFactory(config);
     factory.reload(caches);

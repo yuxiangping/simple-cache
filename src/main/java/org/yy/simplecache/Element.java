@@ -1,7 +1,11 @@
-package com.ecache;
+package org.yy.simplecache;
 
 import java.io.Serializable;
 
+/**
+ * Element for cache.
+ * @author yy
+ */
 public class Element<K, V> implements Serializable {
 
   private static final long serialVersionUID = 1918373817726811488L;

@@ -1,4 +1,4 @@
-package com.ecache.utils;
+package org.yy.simplecache.utils;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -9,6 +9,10 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Thread pool utils.
+ * @author yy
+ */
 public class ThreadPoolUtil {
 
   public static ExecutorService createExecutor() {
@@ -18,7 +22,7 @@ public class ThreadPoolUtil {
 
           @Override
           public Thread newThread(Runnable r) {
-            Thread t = new Thread(r, "Cache Events Thread-" + cnt.incrementAndGet());
+            Thread t = new Thread(r, "Simple Cache Events Thread-" + cnt.incrementAndGet());
             t.setDaemon(true);
             return t;
           }
@@ -31,7 +35,7 @@ public class ThreadPoolUtil {
 
       @Override
       public Thread newThread(Runnable r) {
-        Thread t = new Thread(r, "Flush Thread-" + cnt.incrementAndGet());
+        Thread t = new Thread(r, "Simple Cache Flush Thread-" + cnt.incrementAndGet());
         t.setDaemon(true);
         return t;
       }

@@ -1,5 +1,9 @@
-package com.ecache;
+package org.yy.simplecache;
 
+/**
+ * Disk persistent configuration.
+ * @author yy
+ */
 public class Configuration {
 
   /**

@@ -1,4 +1,4 @@
-package com.ecache;
+package org.yy.simplecache;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,14 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Easy cache interface
- * @author: xiangping_yu
- * @data : 2015-6-9
- * @since : 1.5
+ * Simple cache interface
+ * @author yy
  */
-public interface ECache<K ,V extends Serializable> {
+public interface SimpleCache<K ,V extends Serializable> {
 
-  Logger logger = LoggerFactory.getLogger(ECache.class);
+  Logger logger = LoggerFactory.getLogger(SimpleCache.class);
   
   boolean set(K key, V value);
   

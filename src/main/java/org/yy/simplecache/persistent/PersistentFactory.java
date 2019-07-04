@@ -1,4 +1,4 @@
-package com.ecache.persistent;
+package org.yy.simplecache.persistent;
 
 import java.util.List;
 import java.util.Map;
@@ -7,12 +7,16 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.ecache.Configuration;
-import com.ecache.ECache;
-import com.ecache.Element;
-import com.ecache.persistent.disk.FileReaderWriter;
-import com.ecache.utils.ThreadPoolUtil;
+import org.yy.simplecache.Configuration;
+import org.yy.simplecache.SimpleCache;
+import org.yy.simplecache.Element;
+import org.yy.simplecache.persistent.disk.FileReaderWriter;
+import org.yy.simplecache.utils.ThreadPoolUtil;
 
+/**
+ * Factory for persisten item.
+ * @author yy
+ */
 public class PersistentFactory {
 
   private ExecutorService createExecutor;
@@ -34,7 +38,7 @@ public class PersistentFactory {
         }
       })); 
     } catch(RejectedExecutionException ex) {
-      ECache.logger.error("Thread Pool is full. Please change the cache service.", ex);
+      SimpleCache.logger.error("Thread Pool is full. Please change the cache service.", ex);
     }
   }
   
@@ -66,6 +70,10 @@ public class PersistentFactory {
     }), 1, 1, TimeUnit.MINUTES);
   }
   
+  /**
+   * Cache event.
+   * @author yy
+   */
   public enum Event {
     PUT {
       @Override <K, V> void handle(Element<K, V> e) {

@@ -1,4 +1,4 @@
-package com.ecache.persistent.disk;
+package org.yy.simplecache.persistent.disk;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,9 +17,13 @@ import java.util.UUID;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-import com.ecache.ECache;
-import com.ecache.Element;
+import org.yy.simplecache.SimpleCache;
+import org.yy.simplecache.Element;
 
+/**
+ * Disk file persistent.
+ * @author yy
+ */
 @SuppressWarnings("unchecked")
 public class FileReaderWriter {
 
@@ -83,10 +87,10 @@ public class FileReaderWriter {
       oos = new ObjectOutputStream(new GZIPOutputStream(new FileOutputStream(data)));
       oos.writeObject(e);
     } catch (FileNotFoundException ex) {
-      ECache.logger.error("Write data file error. File not found. File path:"+path, ex);
+      SimpleCache.logger.error("Write data file error. File not found. File path:"+path, ex);
       throw new RuntimeException(ex);
     } catch (IOException ex) {
-      ECache.logger.error("Write data file io error. File path:"+path, ex);
+      SimpleCache.logger.error("Write data file io error. File path:"+path, ex);
       throw new RuntimeException(ex);
     }  finally {
       try {
@@ -94,7 +98,7 @@ public class FileReaderWriter {
           oos.close();
         }
       } catch (IOException ioe) {
-        ECache.logger.error("Close data file error.", ioe);
+        SimpleCache.logger.error("Close data file error.", ioe);
       }
     }
     indexMap.put(hash, path);
@@ -134,10 +138,10 @@ public class FileReaderWriter {
       oos = new ObjectOutputStream(new GZIPOutputStream(new FileOutputStream(indexFile)));
       oos.writeObject(indexMap);
     } catch (FileNotFoundException ex) {
-      ECache.logger.error("Flush index error. File not found.", ex);
+      SimpleCache.logger.error("Flush index error. File not found.", ex);
       throw new RuntimeException(ex);
     } catch (IOException ioe) {
-      ECache.logger.error("Flush index io error.", ioe);
+      SimpleCache.logger.error("Flush index io error.", ioe);
       throw new RuntimeException(ioe);
     } finally {
       try {
@@ -145,7 +149,7 @@ public class FileReaderWriter {
           oos.close();
         }
       } catch (IOException ioe) {
-        ECache.logger.error("Close index file error.", ioe);
+        SimpleCache.logger.error("Close index file error.", ioe);
       }
     }
   }
@@ -174,13 +178,13 @@ public class FileReaderWriter {
       ois = new ObjectInputStream(new GZIPInputStream(new FileInputStream(dataFile)));
       return ois.readObject();
     } catch (FileNotFoundException ex) {
-      ECache.logger.error("Data file not found. File path:" + filePath, ex);
+      SimpleCache.logger.error("Data file not found. File path:" + filePath, ex);
       throw new RuntimeException(ex);
     } catch (IOException ex) {
-      ECache.logger.error("Read data file error. File path:" + filePath, ex);
+      SimpleCache.logger.error("Read data file error. File path:" + filePath, ex);
       throw new RuntimeException(ex);
     } catch (ClassNotFoundException ex) {
-      ECache.logger.error("Read data file error. File path:" + filePath, ex);
+      SimpleCache.logger.error("Read data file error. File path:" + filePath, ex);
       throw new RuntimeException(ex);
     } finally {
       try {
@@ -188,7 +192,7 @@ public class FileReaderWriter {
           ois.close();
         }
       } catch (IOException ioe) {
-        ECache.logger.error("Close data file error. File path:" + filePath, ioe);
+        SimpleCache.logger.error("Close data file error. File path:" + filePath, ioe);
       }
     }
   }
@@ -203,13 +207,13 @@ public class FileReaderWriter {
       ois = new ObjectInputStream(new GZIPInputStream(new FileInputStream(indexFile)));
       indexMap = (Map<Integer, String>) ois.readObject();
     } catch (FileNotFoundException ex) {
-      ECache.logger.error("Index file not found.", ex);
+      SimpleCache.logger.error("Index file not found.", ex);
       throw new RuntimeException(ex);
     } catch (IOException ex) {
-      ECache.logger.error("Read index file error.", ex);
+      SimpleCache.logger.error("Read index file error.", ex);
       throw new RuntimeException(ex);
     } catch (ClassNotFoundException ex) {
-      ECache.logger.error("Read index file error.", ex);
+      SimpleCache.logger.error("Read index file error.", ex);
       throw new RuntimeException(ex);
     } finally {
       try {
@@ -217,7 +221,7 @@ public class FileReaderWriter {
           ois.close();
         }
       } catch (IOException ioe) {
-        ECache.logger.error("Close index file error.", ioe);
+        SimpleCache.logger.error("Close index file error.", ioe);
       }
     }
   }
@@ -228,7 +232,7 @@ public class FileReaderWriter {
       indexMap = new LinkedHashMap<Integer, String>();
       flush();
     } catch (IOException ex) {
-      ECache.logger.error("Init index file io error.", ex);
+      SimpleCache.logger.error("Init index file io error.", ex);
       throw new RuntimeException(ex);
     }
   }

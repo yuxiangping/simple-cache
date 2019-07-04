@@ -1,0 +1,51 @@
+apply plugin: "java"
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+group = "com.github.yuxiangping"
+version = "1.0.0.RELEASE"
+
+compileJava {
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+	options.encoding = "UTF-8"
+}
+
+compileTestJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    options.encoding = "UTF-8"
+}
+
+repositories {
+	mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+	compile(
+		'org.springframework:spring-beans:4.3.20.RELEASE',
+		'ch.qos.logback:logback-classic:1.2.3',
+		'org.slf4j:slf4j-api:1.7.26'
+	)
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'SimpleCache', 'Implementation-Version': version
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier = 'sources'
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    classifier = 'javadoc'
+}
+
+tasks.withType(Javadoc) {  
+    options.encoding = "UTF-8"  
+}
